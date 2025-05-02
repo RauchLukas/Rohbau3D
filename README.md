@@ -13,7 +13,7 @@ We present a novel 3D point cloud dataset of building shells, representing reali
 
 ## Data Records
 
-The Rohbau3D data records can be summarized as a medium-scale repository of terrestrial laser scan point clouds covering static scenes from a wide variety of shell construction sides. The records include the spatial coordinates annotated with the sensor-specific (1) RGB color, (2) surface reflection intensity information, (3) the reconstruction of surface normal vectors, (4) panoramic 2D image representations of all feature spaces
+The Rohbau3D data records can be summarized as a medium-scale repository of terrestrial laser scan point clouds covering static scenes from a wide variety of shell construction sides. The records include the spatial coordinates annotated with the sensor-specific (1) RGB color, (2) surface reflection intensity information, (3) the reconstruction of surface normal vectors, and (4) panoramic 2D image representations of all feature spaces
 
 ### The Scope Of The Data
 
@@ -67,3 +67,7 @@ If you find our work useful in your research, please cite our paper:
 
 
 ```
+
+## Acknowledement
+The surface normal estimation in this repo is based on/inspired by great works, including but not limited to:   
+[SHS-Net](https://github.com/LeoQLi/SHS-Net) 
