@@ -2,7 +2,7 @@
 A Shell Construction Site 3D Point Cloud Dataset
 
 <p align="center">
-  <img width="600" src="https://github.com/user-attachments/assets/725f1d51-7f75-4f2e-aef4-08990b47c42c" alt="Rohbau3D point cloud feature maps">
+  <img width="800" src="https://github.com/user-attachments/assets/725f1d51-7f75-4f2e-aef4-08990b47c42c" alt="Rohbau3D point cloud feature maps">
 </p>
 <p align="center"><em>Figure: Rohbau3D point cloud feature maps</em></p>
 
@@ -10,6 +10,8 @@ A Shell Construction Site 3D Point Cloud Dataset
 
 We introduce Rohbau3D, a novel dataset of 3D point clouds that realistically represent indoor construction environments. The dataset comprises 504 high-resolution LiDAR scans captured with a terrestrial laser scanner across 14 distinct construction sites, including residential buildings, a large-scale office complex, educational facilities, and an underground parking garage—all in various stages of shell construction or renovation. Each point cloud is enriched with scalar laser reflectance intensity, RGB color values, and reconstructed surface normal vectors. In addition to the 3D data, the dataset includes high-resolution 2D panoramic renderings of each scene and its associated point cloud features. Designed to reflect the complexity and variability of real-world construction sites, Rohbau3D supports research in geometric processing, scene understanding, and intelligent computing in structural and civil engineering. To our knowledge, it is the first dataset of its kind and scale to be publicly released. Rohbau3D is intended as a foundation for ongoing work, with plans to extend it through additional scenes and targeted annotations to support future research.
 
+## Paper
+:page_facing_up: [Rohbau3D: A Shell Construction Site 3D Point Cloud Dataset](https://rdcu.be/eDGTX)
 
 ## Data Records
 
@@ -64,8 +66,20 @@ Rohbau3DDataset(config).validate(features='all')
 If you find our work useful in your research, please cite our paper:
 
 ```
-
-
+@article{rauch.Rohbau3D.2025,
+  title = {Rohbau3D: A Shell Construction Site 3D Point Cloud Dataset},
+  shorttitle = {Rohbau3D},
+  author = {Rauch, Lukas and Braml, Thomas},
+  year = {2025},
+  month = aug,
+  journal = {Scientific Data},
+  volume = {12},
+  number = {1},
+  pages = {1478},
+  publisher = {Nature Publishing Group},
+  issn = {2052-4463},
+  doi = {10.1038/s41597-025-05827-7},
+}
 ```
 
 ## Acknowledement
