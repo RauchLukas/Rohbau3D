@@ -1,0 +1,339 @@
+{
+  "color": {
+    "0": [
+      "site_00.color.part000.tar.zst"
+    ],
+    "1": [
+      "site_01.color.part000.tar.zst"
+    ],
+    "2": [
+      "site_02.color.part000.tar.zst"
+    ],
+    "3": [
+      "site_03.color.part000.tar.zst",
+      "site_03.color.part001.tar.zst",
+      "site_03.color.part002.tar.zst"
+    ],
+    "4": [
+      "site_04.color.part000.tar.zst"
+    ],
+    "5": [
+      "site_05.color.part000.tar.zst",
+      "site_05.color.part001.tar.zst",
+      "site_05.color.part002.tar.zst"
+    ],
+    "6": [
+      "site_06.color.part000.tar.zst",
+      "site_06.color.part001.tar.zst",
+      "site_06.color.part002.tar.zst"
+    ],
+    "7": [
+      "site_07.color.part000.tar.zst"
+    ],
+    "8": [
+      "site_08.color.part000.tar.zst",
+      "site_08.color.part001.tar.zst",
+      "site_08.color.part002.tar.zst"
+    ],
+    "9": [
+      "site_09.color.part000.tar.zst",
+      "site_09.color.part001.tar.zst"
+    ],
+    "10": [
+      "site_10.color.part000.tar.zst"
+    ],
+    "11": [
+      "site_11.color.part000.tar.zst",
+      "site_11.color.part001.tar.zst"
+    ],
+    "12": [
+      "site_12.color.part000.tar.zst",
+      "site_12.color.part001.tar.zst"
+    ],
+    "13": [
+      "site_13.color.part000.tar.zst",
+      "site_13.color.part001.tar.zst"
+    ]
+  },
+  "coord": {
+    "0": [
+      "site_00.coord.part000.tar.zst",
+      "site_00.coord.part001.tar.zst",
+      "site_00.coord.part002.tar.zst",
+      "site_00.coord.part003.tar.zst"
+    ],
+    "1": [
+      "site_01.coord.part000.tar.zst",
+      "site_01.coord.part001.tar.zst"
+    ],
+    "2": [
+      "site_02.coord.part000.tar.zst"
+    ],
+    "3": [
+      "site_03.coord.part000.tar.zst",
+      "site_03.coord.part001.tar.zst",
+      "site_03.coord.part002.tar.zst",
+      "site_03.coord.part003.tar.zst",
+      "site_03.coord.part004.tar.zst",
+      "site_03.coord.part005.tar.zst",
+      "site_03.coord.part006.tar.zst",
+      "site_03.coord.part007.tar.zst",
+      "site_03.coord.part008.tar.zst",
+      "site_03.coord.part009.tar.zst"
+    ],
+    "4": [
+      "site_04.coord.part000.tar.zst",
+      "site_04.coord.part001.tar.zst",
+      "site_04.coord.part002.tar.zst"
+    ],
+    "5": [
+      "site_05.coord.part000.tar.zst",
+      "site_05.coord.part001.tar.zst",
+      "site_05.coord.part002.tar.zst",
+      "site_05.coord.part003.tar.zst",
+      "site_05.coord.part004.tar.zst",
+      "site_05.coord.part005.tar.zst",
+      "site_05.coord.part006.tar.zst",
+      "site_05.coord.part007.tar.zst",
+      "site_05.coord.part008.tar.zst",
+      "site_05.coord.part009.tar.zst",
+      "site_05.coord.part010.tar.zst"
+    ],
+    "6": [
+      "site_06.coord.part000.tar.zst",
+      "site_06.coord.part001.tar.zst",
+      "site_06.coord.part002.tar.zst",
+      "site_06.coord.part003.tar.zst",
+      "site_06.coord.part004.tar.zst",
+      "site_06.coord.part005.tar.zst",
+      "site_06.coord.part006.tar.zst",
+      "site_06.coord.part007.tar.zst",
+      "site_06.coord.part008.tar.zst",
+      "site_06.coord.part009.tar.zst",
+      "site_06.coord.part010.tar.zst"
+    ],
+    "7": [
+      "site_07.coord.part000.tar.zst"
+    ],
+    "8": [
+      "site_08.coord.part000.tar.zst",
+      "site_08.coord.part001.tar.zst",
+      "site_08.coord.part002.tar.zst",
+      "site_08.coord.part003.tar.zst",
+      "site_08.coord.part004.tar.zst",
+      "site_08.coord.part005.tar.zst",
+      "site_08.coord.part006.tar.zst",
+      "site_08.coord.part007.tar.zst",
+      "site_08.coord.part008.tar.zst",
+      "site_08.coord.part009.tar.zst"
+    ],
+    "9": [
+      "site_09.coord.part000.tar.zst",
+      "site_09.coord.part001.tar.zst",
+      "site_09.coord.part002.tar.zst",
+      "site_09.coord.part003.tar.zst",
+      "site_09.coord.part004.tar.zst",
+      "site_09.coord.part005.tar.zst"
+    ],
+    "10": [
+      "site_10.coord.part000.tar.zst"
+    ],
+    "11": [
+      "site_11.coord.part000.tar.zst",
+      "site_11.coord.part001.tar.zst",
+      "site_11.coord.part002.tar.zst",
+      "site_11.coord.part003.tar.zst",
+      "site_11.coord.part004.tar.zst",
+      "site_11.coord.part005.tar.zst",
+      "site_11.coord.part006.tar.zst"
+    ],
+    "12": [
+      "site_12.coord.part000.tar.zst",
+      "site_12.coord.part001.tar.zst",
+      "site_12.coord.part002.tar.zst",
+      "site_12.coord.part003.tar.zst",
+      "site_12.coord.part004.tar.zst",
+      "site_12.coord.part005.tar.zst",
+      "site_12.coord.part006.tar.zst"
+    ],
+    "13": [
+      "site_13.coord.part000.tar.zst",
+      "site_13.coord.part001.tar.zst",
+      "site_13.coord.part002.tar.zst",
+      "site_13.coord.part003.tar.zst",
+      "site_13.coord.part004.tar.zst"
+    ]
+  },
+  "intensity": {
+    "0": [
+      "site_00.intensity.part000.tar.zst",
+      "site_00.intensity.part001.tar.zst"
+    ],
+    "1": [
+      "site_01.intensity.part000.tar.zst"
+    ],
+    "2": [
+      "site_02.intensity.part000.tar.zst"
+    ],
+    "3": [
+      "site_03.intensity.part000.tar.zst",
+      "site_03.intensity.part001.tar.zst",
+      "site_03.intensity.part002.tar.zst",
+      "site_03.intensity.part003.tar.zst"
+    ],
+    "4": [
+      "site_04.intensity.part000.tar.zst"
+    ],
+    "5": [
+      "site_05.intensity.part000.tar.zst",
+      "site_05.intensity.part001.tar.zst",
+      "site_05.intensity.part002.tar.zst",
+      "site_05.intensity.part003.tar.zst"
+    ],
+    "6": [
+      "site_06.intensity.part000.tar.zst",
+      "site_06.intensity.part001.tar.zst",
+      "site_06.intensity.part002.tar.zst",
+      "site_06.intensity.part003.tar.zst"
+    ],
+    "7": [
+      "site_07.intensity.part000.tar.zst"
+    ],
+    "8": [
+      "site_08.intensity.part000.tar.zst",
+      "site_08.intensity.part001.tar.zst",
+      "site_08.intensity.part002.tar.zst",
+      "site_08.intensity.part003.tar.zst"
+    ],
+    "9": [
+      "site_09.intensity.part000.tar.zst",
+      "site_09.intensity.part001.tar.zst"
+    ],
+    "10": [
+      "site_10.intensity.part000.tar.zst"
+    ],
+    "11": [
+      "site_11.intensity.part000.tar.zst",
+      "site_11.intensity.part001.tar.zst",
+      "site_11.intensity.part002.tar.zst"
+    ],
+    "12": [
+      "site_12.intensity.part000.tar.zst",
+      "site_12.intensity.part001.tar.zst",
+      "site_12.intensity.part002.tar.zst"
+    ],
+    "13": [
+      "site_13.intensity.part000.tar.zst",
+      "site_13.intensity.part001.tar.zst"
+    ]
+  },
+  "normal": {
+    "0": [
+      "site_00.normal.part000.tar.zst",
+      "site_00.normal.part001.tar.zst",
+      "site_00.normal.part002.tar.zst",
+      "site_00.normal.part003.tar.zst"
+    ],
+    "1": [
+      "site_01.normal.part000.tar.zst",
+      "site_01.normal.part001.tar.zst"
+    ],
+    "2": [
+      "site_02.normal.part000.tar.zst"
+    ],
+    "3": [
+      "site_03.normal.part000.tar.zst",
+      "site_03.normal.part001.tar.zst",
+      "site_03.normal.part002.tar.zst",
+      "site_03.normal.part003.tar.zst",
+      "site_03.normal.part004.tar.zst",
+      "site_03.normal.part005.tar.zst",
+      "site_03.normal.part006.tar.zst",
+      "site_03.normal.part007.tar.zst",
+      "site_03.normal.part008.tar.zst",
+      "site_03.normal.part009.tar.zst"
+    ],
+    "4": [
+      "site_04.normal.part000.tar.zst",
+      "site_04.normal.part001.tar.zst",
+      "site_04.normal.part002.tar.zst"
+    ],
+    "5": [
+      "site_05.normal.part000.tar.zst",
+      "site_05.normal.part001.tar.zst",
+      "site_05.normal.part002.tar.zst",
+      "site_05.normal.part003.tar.zst",
+      "site_05.normal.part004.tar.zst",
+      "site_05.normal.part005.tar.zst",
+      "site_05.normal.part006.tar.zst",
+      "site_05.normal.part007.tar.zst",
+      "site_05.normal.part008.tar.zst",
+      "site_05.normal.part009.tar.zst",
+      "site_05.normal.part010.tar.zst"
+    ],
+    "6": [
+      "site_06.normal.part000.tar.zst",
+      "site_06.normal.part001.tar.zst",
+      "site_06.normal.part002.tar.zst",
+      "site_06.normal.part003.tar.zst",
+      "site_06.normal.part004.tar.zst",
+      "site_06.normal.part005.tar.zst",
+      "site_06.normal.part006.tar.zst",
+      "site_06.normal.part007.tar.zst",
+      "site_06.normal.part008.tar.zst",
+      "site_06.normal.part009.tar.zst",
+      "site_06.normal.part010.tar.zst"
+    ],
+    "7": [
+      "site_07.normal.part000.tar.zst"
+    ],
+    "8": [
+      "site_08.normal.part000.tar.zst",
+      "site_08.normal.part001.tar.zst",
+      "site_08.normal.part002.tar.zst",
+      "site_08.normal.part003.tar.zst",
+      "site_08.normal.part004.tar.zst",
+      "site_08.normal.part005.tar.zst",
+      "site_08.normal.part006.tar.zst",
+      "site_08.normal.part007.tar.zst",
+      "site_08.normal.part008.tar.zst",
+      "site_08.normal.part009.tar.zst"
+    ],
+    "9": [
+      "site_09.normal.part000.tar.zst",
+      "site_09.normal.part001.tar.zst",
+      "site_09.normal.part002.tar.zst",
+      "site_09.normal.part003.tar.zst",
+      "site_09.normal.part004.tar.zst",
+      "site_09.normal.part005.tar.zst"
+    ],
+    "10": [
+      "site_10.normal.part000.tar.zst"
+    ],
+    "11": [
+      "site_11.normal.part000.tar.zst",
+      "site_11.normal.part001.tar.zst",
+      "site_11.normal.part002.tar.zst",
+      "site_11.normal.part003.tar.zst",
+      "site_11.normal.part004.tar.zst",
+      "site_11.normal.part005.tar.zst",
+      "site_11.normal.part006.tar.zst"
+    ],
+    "12": [
+      "site_12.normal.part000.tar.zst",
+      "site_12.normal.part001.tar.zst",
+      "site_12.normal.part002.tar.zst",
+      "site_12.normal.part003.tar.zst",
+      "site_12.normal.part004.tar.zst",
+      "site_12.normal.part005.tar.zst",
+      "site_12.normal.part006.tar.zst"
+    ],
+    "13": [
+      "site_13.normal.part000.tar.zst",
+      "site_13.normal.part001.tar.zst",
+      "site_13.normal.part002.tar.zst",
+      "site_13.normal.part003.tar.zst",
+      "site_13.normal.part004.tar.zst"
+    ]
+  }
+}

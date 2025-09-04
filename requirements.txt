@@ -1,0 +1,5 @@
+# Add your project dependencies here
+pooch
+tqdm
+zstandard
+yaml

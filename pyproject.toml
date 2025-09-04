@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rohbau3d"
+version = "0.1.0"
+description = "Rohbau3D Dataset Access"
+authors = [
+    { name = "Lukas Rauch", email = "lukas.rauch@unibw.de" }
+]
+license = {text = "MIT"}
+keywords = ["dataset", "point cloud", "download",]
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = [
+    "pooch",
+    "tqdm",
+    "zstandard",
+    "pyyaml"
+]
+
+
+[tool.setuptools.packages.find]
+where = ["src"]

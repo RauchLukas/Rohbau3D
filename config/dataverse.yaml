@@ -1,0 +1,19 @@
+# CONFIGURATION
+# Rohbau3D
+
+# GENERAL
+config_dir: config
+log_dir: log
+log_level: INFO
+
+# DOWNLOAD
+download_hub: dataverse
+download_dir: data/download
+feature_index_file: dataverse_file_index.json
+feature_selection: [coord, color]
+scene_selection: [site_01, site_02]
+
+# FILE EXTRACT
+extract_dir: data/extract
+clean_download_files: False
+

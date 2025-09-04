@@ -3,6 +3,21 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+
+# logs
+*logs
+logs/
+
+# data 
+*data
+data/
+
+# IDE
+*.vscode
+.vscode/
+*.idea
+.idea/
+
 # C extensions
 *.so
 
