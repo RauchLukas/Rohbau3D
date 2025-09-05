@@ -10,8 +10,8 @@ log_level: INFO
 download_hub: dataverse
 download_dir: data/download
 feature_index_file: dataverse_file_index.json
-feature_selection: [coord, color]
-scene_selection: [site_01, site_02]
+feature_selection: [all]
+scene_selection: [all]
 
 # FILE EXTRACT
 extract_dir: data/extract
