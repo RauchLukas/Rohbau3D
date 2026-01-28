@@ -59,8 +59,14 @@ site_013\* | Multi-story brick building under renovation. Small rooms connected 
 ```
 rohbau3d
 |-- metadata
-|   |-- site_list.yaml
-|   |-- site_metadata.yaml
+|   |-- pointcloud_file_list.json
+|   |-- site_metadata.json
+|   |-- panorama
+|       |-- features
+|           |-- site_00.panorama.features.pdf
+|           |-- site_01.panorama.features.pdf
+|           |-- site_03.panorama.features.pdf
+|           |-- ...
 |   '-- ... 
 |
 |-- site_00
