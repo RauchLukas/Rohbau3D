@@ -16,13 +16,22 @@ We introduce Rohbau3D, a novel dataset of 3D point clouds that realistically rep
 
 ## Overview 
 
-* [Data Records](#data-records)
-  * [The Scope Of The Data](#the-scope-of-the-data) 
-  * [The Dataset Structure](#the-dataset-structure)
-* [Installation](#installation)
-* [Download and Extract the Data](#download-and-extract-the-data)
-* [Citation](#citation)
-* [Acknowledgement](#acknowledgement)
+- [Rohbau3D](#rohbau3d)
+  - [Abstract](#abstract)
+    - [Paper](#paper)
+  - [Overview](#overview)
+  - [Data Records](#data-records)
+    - [The Scope Of The Data](#the-scope-of-the-data)
+  - [site\_013\* | Multi-story brick building under renovation. Small rooms connected by corridors. Walls partly plastered, partly exposed. Mostly clean floors.](#site_013--multi-story-brick-building-under-renovation-small-rooms-connected-by-corridors-walls-partly-plastered-partly-exposed-mostly-clean-floors)
+    - [The Dataset Structure](#the-dataset-structure)
+  - [Installation](#installation)
+    - [Requirements](#requirements)
+    - [Clone Repository](#clone-repository)
+    - [Conda Environment](#conda-environment)
+  - [Download and Extract the Point Cloud Data](#download-and-extract-the-point-cloud-data)
+  - [Download Feature-Overview Compendium Files](#download-feature-overview-compendium-files)
+  - [Citation](#citation)
+  - [Acknowledgement](#acknowledgement)
 
 
 ## Data Records
@@ -67,7 +76,6 @@ rohbau3d
 |           |-- site_01.panorama.features.pdf
 |           |-- site_03.panorama.features.pdf
 |           |-- ...
-|   '-- ... 
 |
 |-- site_00
 |   |-- scan_00000
@@ -118,9 +126,9 @@ cd Rohbau3D
 pip install .
 ```
 
-## Download and Extract the Data 
+## Download and Extract the Point Cloud Data 
 
-The Dataset can be directly downloaded in chunks from Dataverse | OpenData UniBw M:
+The point cloud dataset can be directly downloaded in chunks from Dataverse @ OpenData UniBw M:
 
 > Download Link: [https://open-data.unibw.de/dataset](https://open-data.unibw.de/dataset.xhtml?persistentId=doi:10.60776/ZWJFI4)
 
@@ -132,9 +140,12 @@ Conveniently, this repository offers also the option of downloading the entire d
   
   Inside the `Rohbau3D` folder, run the `scripts/download.py` script to download all dataset point cloud files. 
   
+
+
   ```bash
   python scripts/download.py --config config/dataverse.yaml --download --extract
   ```
+
   **Options:** 
   - `--config` [required] : set the path to the configuration script. 
   - `--download` [optional] : Flag to enable download. Default=False. 
@@ -185,7 +196,26 @@ Conveniently, this repository offers also the option of downloading the entire d
     - `clean_download_files` : Set the Flag `True`, `False` to delete the download directory at the end of the script. 
 
 
+## Download Feature-Overview Compendium Files
 
+To give you a quick overview of all scenes, we provide a compendium in .pdf format for each acquisition site, with a rendered panoramic view of all point cloud features. 
+
+<p align="center">
+  <img width="360" src="img/panorama.feature.jpg" alt="Example site feature compendium.">
+</p>
+<p align="center"><em>Figure: Rohbau3D point cloud feature maps</em></p>
+
+
+
+You can either manually download the feature.pdf files by searching the Rohbau3D dataset for `"site_{site_number}.panorama.features.pdf"`on [Dataverse @ OpenData UniBw M.](https://open-data.unibw.de/dataset.xhtml?persistentId=doi:10.60776/ZWJFI4)
+
+
+Or you can download all files directly by using the `download_features.py` script via the Dataverse API, inside the Rohbau3D repository: 
+
+```bash 
+# Download all feature compendiums
+python scripts/download_features.py --dir path/to/download/directory
+```
 
 
 ## Citation
