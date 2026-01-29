@@ -30,6 +30,9 @@ We introduce Rohbau3D, a novel dataset of 3D point clouds that realistically rep
     - [Conda Environment](#conda-environment)
   - [Download and Extract the Point Cloud Data](#download-and-extract-the-point-cloud-data)
   - [Download Feature-Overview Compendium Files](#download-feature-overview-compendium-files)
+  - [Rendering Panorama Images from the Point Clouds](#rendering-panorama-images-from-the-point-clouds)
+      - [Render all panoramas for all features](#render-all-panoramas-for-all-features)
+      - [Render panoramas for a specific site and selection of features](#render-panoramas-for-a-specific-site-and-selection-of-features)
   - [Citation](#citation)
   - [Acknowledgement](#acknowledgement)
 
@@ -201,21 +204,55 @@ Conveniently, this repository offers also the option of downloading the entire d
 To give you a quick overview of all scenes, we provide a compendium in .pdf format for each acquisition site, with a rendered panoramic view of all point cloud features. 
 
 <p align="center">
-  <img width="360" src="img/panorama.feature.jpg" alt="Example site feature compendium.">
+  <img width="420" src="img/panorama.feature.jpg" alt="Example site feature compendium.">
 </p>
-<p align="center"><em>Figure: Rohbau3D point cloud feature maps</em></p>
+<p align="center"><em>Example site feature compendium.</em></p>
 
 
+You can either manually download the feature.pdf files by searching the Rohbau3D dataset for `"site_{site_number}.panorama.features.pdf"`on [Dataverse @ Open Data UniBw Munich](https://open-data.unibw.de/dataset.xhtml?persistentId=doi:10.60776/ZWJFI4).
 
-You can either manually download the feature.pdf files by searching the Rohbau3D dataset for `"site_{site_number}.panorama.features.pdf"`on [Dataverse @ OpenData UniBw M.](https://open-data.unibw.de/dataset.xhtml?persistentId=doi:10.60776/ZWJFI4)
 
-
-Or you can download all files directly by using the `download_features.py` script via the Dataverse API, inside the Rohbau3D repository: 
+Or you can download all files directly by using the `download_features.py` script via the Dataverse API from inside the Rohbau3D repository: 
 
 ```bash 
 # Download all feature compendiums
 python scripts/download_features.py --dir path/to/download/directory
 ```
+
+**Options:**
+
+- `dir` : Set the local *path/to/the/download* location.
+
+
+
+## Rendering Panorama Images from the Point Clouds
+
+We provide a method to render panoramic images directly from the point cloud for all available features. 
+The script creates RGBA images of shape (u, v, 4). Empty pixels are set to transparent (opacity=0). 
+
+Use the `render_panorama.py` from inside the Rohbau3D repository to render the images locally. 
+
+#### Render all panoramas for all features
+```bash 
+# Render all panoramas
+python .\scripts\render_panorama.py --data /data/extract/rohbau3d --output ./data/panoramas/ --features "all" --upscale 4 --crop True --workers 16 
+```
+
+#### Render panoramas for a specific site and selection of features
+```bash 
+# Render only specific panoramas for Site 6
+python .\scripts\render_panorama.py --data /data/extract/rohbau3d/site_6 --output ./data/panoramas --upscale 4 --crop True --workers 16 --features "color, normal"
+```
+
+**Options:**
+
+- `data` : Set the local *path/to/the/extracted/site* location.
+- `output`: Set the *path/to/the/output* location.
+- `features`: Select the features to render as a list-string. Options: `"all"`, `"color, depth, intensity, normal"`.
+- `upscale`: Factor to upscale the pixel density (recommended=4).
+- `crop`: Boolean Flag to crop empty boarders at the top and bottom of the panorama. Options: `True`, `False`.
+- `workers`: Number of workers for parallel processing. Default=8, Use `None` for all available. 
+
 
 
 ## Citation

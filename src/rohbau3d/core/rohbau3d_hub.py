@@ -35,8 +35,10 @@ class Rohbau3DHub:
         self.cfg = cfg
 
         self.feature_selection = cfg.get("feature_selection")
+        if self.feature_selection == "all" or self.feature_selection == ["all"]:
+            self.feature_selection = ROHBAU3D_FEATURES
+    
         self.hub = self.get_hub(cfg["download_hub"])
-
         self.download = self.hub.download
 
 
