@@ -182,21 +182,21 @@ Conveniently, this repository offers also the option of downloading the entire d
 
     **Options:**
 
-    - `config_dir` : Set the *path/to/the/configuration/files* location.
-    - `log_dir`: Set the logging *path/to/the/logging* location.
-    - `log_level` : Set the logging Level. 
-    - `download_hub`: Set the download server / hub. [Allowed options: `dataverse` and `default`]
+    - `--config_dir` : Set the *path/to/the/configuration/files* location.
+    - `--log_dir`: Set the logging *path/to/the/logging* location.
+    - `--log_level` : Set the logging Level. 
+    - `--download_hub`: Set the download server / hub. [Allowed options: `dataverse` and `default`]
       > *Note: At the moment, the data can only be downloaded from Dataverse [https://open-data.unibw.de/](https://open-data.unibw.de/)*. 
-    - `download_dir` : Set the *path/to/the/download* location. 
-    - `feature_index_file` : Name the content index file for the download hub. 
-    - `feature_selection` : Select the point cloud features to download as a `list`. Options include: 
+    - `--download_dir` : Set the *path/to/the/download* location. 
+    - `--feature_index_file` : Name the content index file for the download hub. 
+    - `--feature_selection` : Select the point cloud features to download as a `list`. Options include: 
       - `coord` : the actual xyz coordinate of the points. 
       - `color` : the RGB color annotation od the points. 
       - `intensity` : the LiDAR reflection intensity annotation of the points. 
       - `normal` : the reconstructed surface normal annotation of the points. 
       - `all` : selects all available point cloud features. 
-    - `extract_dir` : Set the *path/to/the/file/extraction* location. 
-    - `clean_download_files` : Set the Flag `True`, `False` to delete the download directory at the end of the script. 
+    - `--extract_dir` : Set the *path/to/the/file/extraction* location. 
+    - `--clean_download_files` : Set the Flag `True`, `False` to delete the download directory at the end of the script. 
 
 
 ## Download Feature-Overview Compendium Files
@@ -221,7 +221,7 @@ python scripts/download_features.py --dir path/to/download/directory
 
 **Options:**
 
-- `dir` : Set the local *path/to/the/download* location.
+- `--dir` : Set the local *path/to/the/download* location.
 
 
 
@@ -246,12 +246,12 @@ python .\scripts\render_panorama.py --data /data/extract/rohbau3d/site_6 --outpu
 
 **Options:**
 
-- `data` : Set the local *path/to/the/extracted/site* location.
-- `output`: Set the *path/to/the/output* location.
-- `features`: Select the features to render as a list-string. Options: `"all"`, `"color, depth, intensity, normal"`.
-- `upscale`: Factor to upscale the pixel density (recommended=4).
-- `crop`: Boolean Flag to crop empty boarders at the top and bottom of the panorama. Options: `True`, `False`.
-- `workers`: Number of workers for parallel processing. Default=8, Use `None` for all available. 
+- `--data` : Set the local *path/to/the/extracted/site* location.
+- `--output`: Set the *path/to/the/output* location.
+- `--features`: Select the features to render as a list-string. Options: `"all"`, `"color, depth, intensity, normal"`.
+- `--upscale`: Factor to upscale the pixel density (recommended=4).
+- `--crop`: Boolean Flag to crop empty boarders at the top and bottom of the panorama. Options: `True`, `False`.
+- `--workers`: Number of workers for parallel processing. Default=8, Use `None` for all available. 
 
 
 
