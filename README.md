@@ -86,8 +86,10 @@ rohbau3d
 |   |   |-- color.npy
 |   |   |-- intensity.npy
 |   |   |-- normal.npy
-|   |   |-- panorama.png
-|   |   '-- ...
+|   |   |-- img_color.png
+|   |   |-- img_depth.png
+|   |   |-- img_intensity.png
+|   |   '-- img_normal.png
 |   |   
 |   |-- scan_00001
 |   |-- scan_00002
@@ -235,13 +237,13 @@ Use the `render_panorama.py` from inside the Rohbau3D repository to render the i
 #### Render all panoramas for all features
 ```bash 
 # Render all panoramas
-python .\scripts\render_panorama.py --data /data/extract/rohbau3d --output ./data/panoramas/ --features "all" --upscale 4 --crop True --workers 16 
+python .\scripts\render_panorama.py --data /data/extract/rohbau3d --output /data/extract/rohbau3d --features "all" --upscale 4 --crop True --workers 16 
 ```
 
 #### Render panoramas for a specific site and selection of features
 ```bash 
 # Render only specific panoramas for Site 6
-python .\scripts\render_panorama.py --data /data/extract/rohbau3d/site_6 --output ./data/panoramas --upscale 4 --crop True --workers 16 --features "color, normal"
+python .\scripts\render_panorama.py --data /data/extract/rohbau3d/site_6 --output /data/extract/rohbau3d --upscale 4 --crop True --workers 16 --features "color, normal"
 ```
 
 **Options:**
