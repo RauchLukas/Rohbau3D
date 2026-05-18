@@ -2,7 +2,7 @@
 <!-- <p align="center"><em>Figure: Rohbau3D point cloud feature maps</em></p> -->
 
 [![Format Code](https://github.com/RauchLukas/Rohbau3D/actions/workflows/formatter.yml/badge.svg?branch=main)](https://github.com/RauchLukas/Rohbau3D/actions/workflows/formatter.yml)
-
+[![License](https://img.shields.io/github/license/RauchLukas/Rohbau3D)](https://github.com/RauchLukas/Rohbau3D/blob/main/LICENSE)
 
 ## Abstract
 
