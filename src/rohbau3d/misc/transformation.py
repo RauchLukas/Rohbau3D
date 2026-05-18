@@ -11,23 +11,23 @@ from typing import Sequence
 def euclidean_distance(point, vector):
     """
     Calculate the Euclidean distance between a point and a vector of points.
-    
+
     Parameters:
         point: tuple or array-like, shape (3,)
             Coordinates of the point (x, y, z).
         vector: array-like, shape (n, 3)
             Vector of points with coordinates (x, y, z).
-    
+
     Returns:
         distances: array-like, shape (n,)
             Array containing the Euclidean distances between the point and each point in the vector.
     """
     point = np.array(point)
     vector = np.array(vector)
-    
+
     # Calculate the Euclidean distance using numpy.linalg.norm
     distances = np.linalg.norm(vector - point, axis=1)
-    
+
     return distances
 
 
@@ -36,7 +36,7 @@ def normals_to_rgb(normals):
     Converts an array of normal vectors to RGB colors.
 
     Parameters:
-    - normals (np.ndarray): Array of shape (N, 3) where N is the number of normals, 
+    - normals (np.ndarray): Array of shape (N, 3) where N is the number of normals,
       and each normal is [nx, ny, nz] with values between -1 and 1.
 
     Returns:
@@ -44,13 +44,13 @@ def normals_to_rgb(normals):
     """
     # Ensure normals are numpy array
     normals = np.array(normals)
-    
+
     # Map normals from [-1, 1] to [0, 1] by using (normals + 1) / 2
     rgb = (normals + 1) / 2
-    
+
     # Scale to [0, 255] for RGB values
     rgb = np.clip(rgb * 255, 0, 255).astype(np.uint8)
-    
+
     return rgb
 
 
@@ -79,15 +79,25 @@ def instance_colors(
     background_mask = inst == background_instance_id
     if classes_arr is not None:
         if classes_arr.shape[0] != inst.shape[0]:
-            raise ValueError("classes must have the same length as instance_ids")
+            raise ValueError(
+                "classes must have the same length as instance_ids")
         background_mask |= classes_arr == background_class_id
 
     rgb[background_mask] = np.asarray(background_color, dtype=np.uint8)
     return rgb
 
+
 class SphericalProjection:
 
-    def __init__(self, coord, color=None, intensity=None, normal=None, classes=None, instance=None, class_cmap=None):
+    def __init__(
+            self,
+            coord,
+            color=None,
+            intensity=None,
+            normal=None,
+            classes=None,
+            instance=None,
+            class_cmap=None):
         self.coord = coord
         self.color = color
         self.intensity = intensity
@@ -100,7 +110,7 @@ class SphericalProjection:
 
         if self.intensity is None:
             raise ValueError("intensity information is missing.")
-        
+
         px, py, pz = self.coord[:, 0], self.coord[:, 1], self.coord[:, 2]
         r = euclidean_distance([0, 0, 0], self.coord)
 
@@ -112,7 +122,8 @@ class SphericalProjection:
 
         # Apply viridis colormap
         colormap = cm.get_cmap('gray')
-        rgb_color = colormap(self.intensity)[:, :3]  # Extract RGB channels, ignore alpha
+        # Extract RGB channels, ignore alpha
+        rgb_color = colormap(self.intensity)[:, :3]
 
         image, mask = self.assemble_image_rgba(u, v, rgb_color, h, w)
 
@@ -123,10 +134,9 @@ class SphericalProjection:
             pil_image = self.crop_empty_borders(pil_image, mask)
 
         return pil_image
-    
-    
+
     def depth_image(self, normalize, upscale=8, img_ratio=(3, 1), crop=False):
-    
+
         px, py, pz = self.coord[:, 0], self.coord[:, 1], self.coord[:, 2]
         r = euclidean_distance([0, 0, 0], self.coord)
 
@@ -135,7 +145,6 @@ class SphericalProjection:
 
         u = self.get_u(px, py, w=w)
         v = self.get_v(pz, radius=r, fup=90, fdw=90, h=h)
-
 
         if normalize:
             r = np.asarray(r, dtype=np.float32) / r.max()
@@ -156,7 +165,6 @@ class SphericalProjection:
 
         return pil_image
 
-
     def color_image(self, upscale=8, img_ratio=(3, 1), crop=True):
 
         if self.color is None:
@@ -171,7 +179,7 @@ class SphericalProjection:
         u = self.get_u(px, py, w=w)
         v = self.get_v(pz, radius=r, fup=90, fdw=90, h=h)
 
-        image, mask = self.assemble_image_rgba(u, v, self.color/255, h, w)
+        image, mask = self.assemble_image_rgba(u, v, self.color / 255, h, w)
 
         colored_image = (image).astype(np.uint8)
         pil_image = Image.fromarray(colored_image, mode='RGBA')
@@ -180,12 +188,22 @@ class SphericalProjection:
             pil_image = self.crop_empty_borders(pil_image, mask)
 
         return pil_image
-    
-    
-    def normal_image(self, upscale=8, img_ratio=(3, 1), default_color=[0, 0, 0], crop=True, normalize=True):
+
+    def normal_image(
+            self,
+            upscale=8,
+            img_ratio=(
+                3,
+                1),
+            default_color=[
+                0,
+                0,
+                0],
+        crop=True,
+            normalize=True):
         if self.normal is None:
             raise ValueError("Normal information is missing.")
-        
+
         px, py, pz = self.coord[:, 0], self.coord[:, 1], self.coord[:, 2]
         r = euclidean_distance([0, 0, 0], self.coord)
 
@@ -197,7 +215,7 @@ class SphericalProjection:
 
         color = normals_to_rgb(self.normal)
 
-        image, mask = self.assemble_image_rgba(u, v, color/255, h, w)
+        image, mask = self.assemble_image_rgba(u, v, color / 255, h, w)
 
         colored_image = (image).astype(np.uint8)
         pil_image = Image.fromarray(colored_image, mode='RGBA')
@@ -207,12 +225,21 @@ class SphericalProjection:
 
         return pil_image
 
-
-    def class_image(self, upscale=8, img_ratio=(3, 1), default_color=[0, 0, 0], crop=True):
+    def class_image(
+            self,
+            upscale=8,
+            img_ratio=(
+                3,
+                1),
+            default_color=[
+                0,
+                0,
+                0],
+            crop=True):
 
         if self.classes is None:
             raise ValueError("Semantic class information is missing.")
-        
+
         px, py, pz = self.coord[:, 0], self.coord[:, 1], self.coord[:, 2]
         r = euclidean_distance([0, 0, 0], self.coord)
 
@@ -227,7 +254,8 @@ class SphericalProjection:
         #     colormap = cm.get_cmap('tab20', num_classes)
         # else:
         colormap = self.class_cmap
-        rgb_color = colormap(self.classes)[:, :3]  # Extract RGB channels, ignore alpha
+        # Extract RGB channels, ignore alpha
+        rgb_color = colormap(self.classes)[:, :3]
 
         image, mask = self.assemble_image_rgba(u, v, rgb_color, h, w)
 
@@ -238,8 +266,18 @@ class SphericalProjection:
             pil_image = self.crop_empty_borders(pil_image, mask)
 
         return pil_image
-    
-    def instance_image(self, upscale=8, img_ratio=(3, 1), default_color=[0, 0, 0], crop=True):
+
+    def instance_image(
+            self,
+            upscale=8,
+            img_ratio=(
+                3,
+                1),
+            default_color=[
+                0,
+                0,
+                0],
+            crop=True):
 
         if self.instance is None:
             raise ValueError("Instance information is missing.")
@@ -256,12 +294,13 @@ class SphericalProjection:
         rgb_color = instance_colors(
             self.instance,
             seed=0,
-            classes=getattr(self, "instance", None),   # adapt if your semantic labels use a different attribute
+            # adapt if your semantic labels use a different attribute
+            classes=getattr(self, "instance", None),
             background_instance_id=0,
             background_color=(114, 114, 116),
         )
 
-        image, mask = self.assemble_image_rgba(u, v, rgb_color/255, h, w)
+        image, mask = self.assemble_image_rgba(u, v, rgb_color / 255, h, w)
 
         colored_image = image.astype(np.uint8)
         pil_image = Image.fromarray(colored_image, mode="RGBA")
@@ -271,10 +310,8 @@ class SphericalProjection:
 
         return pil_image
 
-
-
     @staticmethod
-    def crop_empty_borders(image, mask, threshold=0.999): 
+    def crop_empty_borders(image, mask, threshold=0.999):
         """
         Crop the image to remove empty borders based on a binary mask.
         """
@@ -309,8 +346,6 @@ class SphericalProjection:
         cropped_image = image.crop((0, top, image.size[0], bottom))
         return cropped_image
 
-
-
     @staticmethod
     def get_u(x, y, w=1200):
         return (0.5 * (1 - np.arctan2(y, x) / np.pi) * (w - 1)).astype(int)
@@ -322,8 +357,10 @@ class SphericalProjection:
         f = fup + fdw
 
         phi = np.arcsin(z / radius)
-        assert abs(phi.max()) <= fup, "Point is outside the field of view :: fup"
-        assert abs(phi.min()) <= fdw, "Point is outside the field of view :: fdw"
+        assert abs(
+            phi.max()) <= fup, "Point is outside the field of view :: fup"
+        assert abs(
+            phi.min()) <= fdw, "Point is outside the field of view :: fdw"
 
         return ((1 - (phi + fdw) / f) * (h - 1)).astype(int)
 
@@ -351,8 +388,8 @@ class SphericalProjection:
 
         default = [1, 1, 1, 0]
 
-    
-        # Initialize an empty image with dtype float to handle fractional colors
+        # Initialize an empty image with dtype float to handle fractional
+        # colors
         image = np.zeros((height, width, 4), dtype=float)
         image[:, :] = default
 
@@ -365,7 +402,6 @@ class SphericalProjection:
 
         return image, mask
 
-
     @staticmethod
     def class_voting(u, v, semantic_classes, height, width, default=-1):
 
@@ -375,7 +411,8 @@ class SphericalProjection:
 
         num_semantic_classes = 13
 
-        # Initialize an empty image with dtype float to handle fractional colors
+        # Initialize an empty image with dtype float to handle fractional
+        # colors
         votes = np.zeros((height, width, num_semantic_classes), dtype=int)
 
         # Assemble the pixel values into the image
@@ -383,19 +420,19 @@ class SphericalProjection:
             votes[v[i], u[i], semantic_classes[i]] += 1
             mask[v[i], u[i]] = 1
 
-        weights = [1, 1, 1, 4, 16, 16, 16, 16, 64, 64, 64, 64, 64] 
+        weights = [1, 1, 1, 4, 16, 16, 16, 16, 64, 64, 64, 64, 64]
         votes = votes * weights
 
         votes = np.argmax(votes, axis=2)
 
         image[mask == 1] = votes[mask == 1]
-        return image 
-
+        return image
 
     # @staticmethod
     # def assemble_image_rgb(u, v, rgb_colors, height, width, default=[0, 0, 0]):
     #     """
-    #     Assemble the RGB color values into the (u, v) indexed pixels of an image.
+    # Assemble the RGB color values into the (u, v) indexed pixels of an
+    # image.
 
     #     Parameters:
     #         u: array-like, shape (n,)
@@ -428,11 +465,11 @@ class SphericalProjection:
 
     #     return image, mask
 
-
     # @staticmethod
     # def assemble_image_scalar(u, v, r, height, width, default=-1):
     #     """
-    #     Assemble the pixel values from the r vector into the (u, v) indexed pixels of an image.
+    # Assemble the pixel values from the r vector into the (u, v) indexed
+    # pixels of an image.
 
     #     Parameters:
     #         u: array-like, shape (n,)
@@ -461,11 +498,10 @@ class SphericalProjection:
 
     #     return image, mask
 
-
     # def assemble_image_superposition_count(u, v, height, width):
 
     #     # Initialize an empty image
-    #     image = np.zeros((height, width)) 
+    #     image = np.zeros((height, width))
 
     #     # Assemble the pixel values into the image
     #     for i in range(len(u)):

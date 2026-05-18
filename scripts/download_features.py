@@ -12,11 +12,11 @@ import argparse
 from rohbau3d.misc.helper import tree
 
 ROHBAU3D_HEADER = """
-    ____        __    __               _____ ____     __  __      __  
-   / __ \____  / /_  / /_  ____ ___  _|__  // __ \   / / / /_  __/ /_ 
-  / /_/ / __ \/ __ \/ __ \/ __ `/ / / //_ </ / / /  / /_/ / / / / __ \ 
+    ____        __    __               _____ ____     __  __      __
+   / __ \\____  / /_  / /_  ____ ___  _|__  // __ \\   / / / /_  __/ /_
+  / /_/ / __ \\/ __ \\/ __ \\/ __ `/ / / //_ </ / / /  / /_/ / / / / __ \
  / _, _/ /_/ / / / / /_/ / /_/ / /_/ /__/ / /_/ /  / __  / /_/ / /_/ /
-/_/ |_|\____/_/ /_/_.___/\__,_/\__,_/____/_____/  /_/ /_/\__,_/_.___/ 
+/_/ |_|\\____/_/ /_/_.___/\\__,_/\\__,_/____/_____/  /_/ /_/\\__,_/_.___/
 >>> Rohbau3D Hub <<<
 """
 
@@ -38,17 +38,21 @@ FILE_LIST = [
 ]
 
 
-
 def _argparse():
-    parser = argparse.ArgumentParser(description="Rohbau3D: Feature Compendium Download Script")
-    parser.add_argument("--dir", type=str, required=True, help="Output directory for downloaded features")
+    parser = argparse.ArgumentParser(
+        description="Rohbau3D: Feature Compendium Download Script")
+    parser.add_argument(
+        "--dir",
+        type=str,
+        required=True,
+        help="Output directory for downloaded features")
     args = parser.parse_args()
 
     return args
 
 
 def main():
-    args = _argparse()  
+    args = _argparse()
 
     output_dir = args.dir
 
@@ -58,15 +62,17 @@ def main():
         print(f"Created directory: {output_dir}")
 
     # initialize Dataverse API downloader
-    print("connecting to \033[38;5;208mDataverse @ Open Data UniBw Munich\033[0m ...")
+    print(
+        "connecting to \033[38;5;208mDataverse @ Open Data UniBw Munich\033[0m ...")
     downloader = DOIDownloader()
 
-    counter = 0 
+    counter = 0
     for i, file_name in enumerate(FILE_LIST):
         url = f"doi:10.60776/ZWJFI4/{file_name}"
         output_file = os.path.join(output_dir, file_name)
-        
-        print(f"Downloading file {i+1}/{len(FILE_LIST)}: {file_name} ... \r", end="")
+
+        print(
+            f"Downloading file {i + 1}/{len(FILE_LIST)}: {file_name} ... \r", end="")
         try:
             # fetch the file
             downloader(url=url, output_file=output_file, pooch=None)

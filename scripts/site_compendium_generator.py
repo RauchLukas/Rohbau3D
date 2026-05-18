@@ -72,11 +72,9 @@ class SceneRecord:
         return self.panorama_dir / f"{feature}.png"
 
 
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Create one compendium PDF per site from site/scene/panorama folders."
-    )
+        description="Create one compendium PDF per site from site/scene/panorama folders.")
     parser.add_argument(
         "base_dir",
         type=Path,
@@ -110,21 +108,17 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-
 def setup_logging(verbose: bool) -> None:
     level = logging.DEBUG if verbose else logging.INFO
     logging.basicConfig(level=level, format="[%(levelname)s] %(message)s")
-
 
 
 def sorted_dirs(paths: Iterable[Path]) -> List[Path]:
     return sorted((p for p in paths if p.is_dir()), key=lambda p: p.name)
 
 
-
 def discover_sites(base_dir: Path, site_pattern: str) -> List[Path]:
     return sorted_dirs(base_dir.glob(site_pattern))
-
 
 
 def discover_scenes(site_dir: Path, scene_pattern: str) -> List[SceneRecord]:
@@ -132,26 +126,30 @@ def discover_scenes(site_dir: Path, scene_pattern: str) -> List[SceneRecord]:
     for scene_dir in sorted_dirs(site_dir.glob(scene_pattern)):
         panorama_dir = scene_dir / "panorama"
         if panorama_dir.is_dir():
-            scenes.append(SceneRecord(site_dir.name, scene_dir.name, panorama_dir))
+            scenes.append(
+                SceneRecord(
+                    site_dir.name,
+                    scene_dir.name,
+                    panorama_dir))
         else:
-            logging.warning("Skipping %s because panorama/ is missing", scene_dir)
+            logging.warning(
+                "Skipping %s because panorama/ is missing",
+                scene_dir)
     return scenes
 
 
-
-def fit_preserving_aspect(img_w: int, img_h: int, max_w: float, max_h: float) -> Tuple[float, float]:
+def fit_preserving_aspect(img_w: int, img_h: int,
+                          max_w: float, max_h: float) -> Tuple[float, float]:
     if img_w <= 0 or img_h <= 0:
         return max_w, max_h
     scale = min(max_w / img_w, max_h / img_h)
     return img_w * scale, img_h * scale
 
 
-
 def draw_background(pdf: canvas.Canvas) -> None:
     pdf.setFillColor(BG_COLOR)
     pdf.setStrokeColor(BG_COLOR)
     pdf.rect(0, 0, PAGE_WIDTH, PAGE_HEIGHT, fill=1, stroke=0)
-
 
 
 def draw_header(pdf: canvas.Canvas, scene: SceneRecord) -> float:
@@ -164,7 +162,6 @@ def draw_header(pdf: canvas.Canvas, scene: SceneRecord) -> float:
     y_top = PAGE_HEIGHT - TOP_MARGIN
     pdf.drawString(x, y_top - FONT_SIZE, header_text)
     return y_top - FONT_SIZE - HEADER_GAP
-
 
 
 def draw_rotated_label(
@@ -183,8 +180,13 @@ def draw_rotated_label(
     pdf.restoreState()
 
 
-
-def draw_placeholder(pdf: canvas.Canvas, x: float, y: float, w: float, h: float, message: str) -> None:
+def draw_placeholder(
+        pdf: canvas.Canvas,
+        x: float,
+        y: float,
+        w: float,
+        h: float,
+        message: str) -> None:
     pdf.saveState()
     pdf.setFillColor(BG_COLOR)
     pdf.setStrokeColor(FG_COLOR)
@@ -196,7 +198,6 @@ def draw_placeholder(pdf: canvas.Canvas, x: float, y: float, w: float, h: float,
     tw = stringWidth(text, FONT_NAME, 11)
     pdf.drawString(x + max((w - tw) / 2.0, 4), y + h / 2.0 - 4, text)
     pdf.restoreState()
-
 
 
 def draw_feature_image(
@@ -236,7 +237,6 @@ def draw_feature_image(
         return x_left, y_bottom, max_w, row_h
 
 
-
 def draw_scene_page(pdf: canvas.Canvas, scene: SceneRecord) -> None:
     draw_background(pdf)
     y_after_header = draw_header(pdf, scene)
@@ -246,7 +246,8 @@ def draw_scene_page(pdf: canvas.Canvas, scene: SceneRecord) -> None:
     row_h = (usable_height - total_gap) / len(FEATURES)
 
     image_right = PAGE_WIDTH - RIGHT_MARGIN
-    label_center_x = image_right - IMAGE_WIDTH - LABEL_GAP - (LABEL_COLUMN_WIDTH / 2.0)
+    label_center_x = image_right - IMAGE_WIDTH - \
+        LABEL_GAP - (LABEL_COLUMN_WIDTH / 2.0)
 
     current_y_top = y_after_header
     for feature in FEATURES:
@@ -268,8 +269,11 @@ def draw_scene_page(pdf: canvas.Canvas, scene: SceneRecord) -> None:
     pdf.showPage()
 
 
-
-def create_site_pdf(site_dir: Path, scenes: Sequence[SceneRecord], export_dir: Path, overwrite: bool) -> Optional[Path]:
+def create_site_pdf(
+        site_dir: Path,
+        scenes: Sequence[SceneRecord],
+        export_dir: Path,
+        overwrite: bool) -> Optional[Path]:
     if not scenes:
         logging.warning("No valid scenes found for %s", site_dir.name)
         return None
@@ -294,7 +298,6 @@ def create_site_pdf(site_dir: Path, scenes: Sequence[SceneRecord], export_dir: P
     return pdf_path
 
 
-
 def main() -> int:
     args = parse_args()
     setup_logging(args.verbose)
@@ -303,18 +306,24 @@ def main() -> int:
     export_dir = args.export_dir.expanduser().resolve()
 
     if not base_dir.is_dir():
-        logging.error("Base directory does not exist or is not a directory: %s", base_dir)
+        logging.error(
+            "Base directory does not exist or is not a directory: %s",
+            base_dir)
         return 1
 
     site_dirs = discover_sites(base_dir, args.site_pattern)
     if not site_dirs:
-        logging.error("No site folders found in %s with pattern '%s'", base_dir, args.site_pattern)
+        logging.error(
+            "No site folders found in %s with pattern '%s'",
+            base_dir,
+            args.site_pattern)
         return 1
 
     created = 0
     for site_dir in site_dirs:
         scenes = discover_scenes(site_dir, args.scene_pattern)
-        pdf_path = create_site_pdf(site_dir, scenes, export_dir, args.overwrite)
+        pdf_path = create_site_pdf(
+            site_dir, scenes, export_dir, args.overwrite)
         if pdf_path is not None:
             created += 1
 

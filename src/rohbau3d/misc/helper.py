@@ -22,23 +22,25 @@ def read_json_dict(file_path):
     return data
 
 
-def session_summary(stats:dict):
+def session_summary(stats: dict):
     # Implement a function to summarize the current session
-    log.info("/"*50)
+    log.info("/" * 50)
     log.info("Session Summary:")
-    log.info("="*50)
+    log.info("=" * 50)
     for key, value in stats.items():
-        
+
         path = value.pop("path", None)
         time = value.pop("total_time", None)
         log.info(f"{key.upper()} Summary:")
-        log.info(f"  Total Time: {time:.2f} seconds" if time else "  Total Time: N/A")
+        log.info(
+            f"  Total Time: {
+                time:.2f} seconds" if time else "  Total Time: N/A")
         log.info(f"  Path:       {path}" if path else "  Path: N/A")
 
         for key, val in value.items():
             log.info(f"    > {key:<20}: {val}")
 
-        log.info("="*50)   
+        log.info("=" * 50)
     return None
 
 
@@ -82,7 +84,10 @@ def extract_all_tar_zstd_parts(root_dir, output_root, feature):
         try:
             extract_tar_zstd(zst_path, output_dir)
             stats["num_files_extracted"] += 1
-            log.info(f"Extracted {zst_path} to {output_dir}", extra={"no_console": True})
+            log.info(
+                f"Extracted {zst_path} to {output_dir}",
+                extra={
+                    "no_console": True})
         except Exception as e:
             log.error(f"Failed to extract {zst_path}: {e}")
             stats["num_files_failed"] += 1
@@ -90,25 +95,25 @@ def extract_all_tar_zstd_parts(root_dir, output_root, feature):
     return stats
 
 
-
 # prefix components:
-space =  '    '
+space = '    '
 branch = '│   '
 # pointers:
-tee =    '├── '
-last =   '└── '
+tee = '├── '
+last = '└── '
 
-def tree(dir_path: Path, prefix: str=''):
+
+def tree(dir_path: Path, prefix: str = ''):
     """A recursive generator, given a directory Path object
     will yield a visual tree structure line by line
     with each line prefixed by the same characters
-    """    
+    """
     contents = list(dir_path.iterdir())
     # contents each get pointers that are ├── with a final └── :
     pointers = [tee] * (len(contents) - 1) + [last]
     for pointer, path in zip(pointers, contents):
         yield prefix + pointer + path.name
-        if path.is_dir(): # extend the prefix and recurse:
-            extension = branch if pointer == tee else space 
+        if path.is_dir():  # extend the prefix and recurse:
+            extension = branch if pointer == tee else space
             # i.e. space because last, └── , above so no more |
-            yield from tree(path, prefix=prefix+extension)
+            yield from tree(path, prefix=prefix + extension)

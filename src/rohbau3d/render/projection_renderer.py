@@ -14,11 +14,11 @@ from PIL import Image
 from rohbau3d.misc.config import load_config
 
 ROHBAU3D_HEADER = """
-    ____        __    __               _____ ____     __  __      __  
-   / __ \____  / /_  / /_  ____ ___  _|__  // __ \   / / / /_  __/ /_ 
-  / /_/ / __ \/ __ \/ __ \/ __ `/ / / //_ </ / / /  / /_/ / / / / __ \ 
+    ____        __    __               _____ ____     __  __      __
+   / __ \\____  / /_  / /_  ____ ___  _|__  // __ \\   / / / /_  __/ /_
+  / /_/ / __ \\/ __ \\/ __ \\/ __ `/ / / //_ </ / / /  / /_/ / / / / __ \
  / _, _/ /_/ / / / / /_/ / /_/ / /_/ /__/ / /_/ /  / __  / /_/ / /_/ /
-/_/ |_|\____/_/ /_/_.___/\__,_/\__,_/____/_____/  /_/ /_/\__,_/_.___/ 
+/_/ |_|\\____/_/ /_/_.___/\\__,_/\\__,_/____/_____/  /_/ /_/\\__,_/_.___/
 >>> Rohbau3D Hub <<<
 \n"""
 
@@ -133,7 +133,8 @@ class _ProgressLogger:
 
 def _hex_to_rgb(hex_color: str) -> np.ndarray:
     h = hex_color.lstrip("#")
-    return np.array([int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)], dtype=np.uint8)
+    return np.array([int(h[0:2], 16), int(h[2:4], 16),
+                    int(h[4:6], 16)], dtype=np.uint8)
 
 
 def _build_class_lut() -> Dict[int, np.ndarray]:
@@ -162,17 +163,20 @@ def _normalize_to_uint8(values: np.ndarray) -> np.ndarray:
         return np.zeros((0,), dtype=np.uint8)
     vmin = float(np.nanmin(v))
     vmax = float(np.nanmax(v))
-    if not np.isfinite(vmin) or not np.isfinite(vmax) or abs(vmax - vmin) < 1e-12:
+    if not np.isfinite(vmin) or not np.isfinite(
+            vmax) or abs(vmax - vmin) < 1e-12:
         return np.zeros_like(v, dtype=np.uint8)
     out = (v - vmin) / (vmax - vmin)
     return np.clip(np.round(out * 255.0), 0.0, 255.0).astype(np.uint8)
 
 
-def _colorize_class(class_ids: np.ndarray, lut: Dict[int, np.ndarray]) -> np.ndarray:
+def _colorize_class(class_ids: np.ndarray,
+                    lut: Dict[int, np.ndarray]) -> np.ndarray:
     ids = class_ids.astype(np.int64).reshape(-1)
     out = np.zeros((ids.shape[0], 3), dtype=np.uint8)
     for cid in np.unique(ids):
-        out[ids == cid] = lut.get(int(cid), np.array([255, 255, 255], dtype=np.uint8))
+        out[ids == cid] = lut.get(int(cid), np.array(
+            [255, 255, 255], dtype=np.uint8))
     return out
 
 
@@ -184,7 +188,10 @@ def _colorize_instance(instance_ids: np.ndarray) -> np.ndarray:
     return out
 
 
-def _discover_scenes(data_root: Path, site: str | None, scene: str | None) -> List[Path]:
+def _discover_scenes(
+        data_root: Path,
+        site: str | None,
+        scene: str | None) -> List[Path]:
 
     # automatically handle nested "rohbau3d" subdirectories
     while (data_root / "rohbau3d").is_dir():
@@ -243,7 +250,10 @@ def _save_png(path: Path, image: np.ndarray) -> None:
     Image.fromarray(image).save(path)
 
 
-def _best_point_per_pixel(linear_pix: np.ndarray, depth: np.ndarray, num_pixels: int) -> np.ndarray:
+def _best_point_per_pixel(
+        linear_pix: np.ndarray,
+        depth: np.ndarray,
+        num_pixels: int) -> np.ndarray:
     best_depth = np.full((num_pixels,), np.inf, dtype=np.float32)
     best_point = np.full((num_pixels,), -1, dtype=np.int64)
 
@@ -282,7 +292,11 @@ def _project_equirectangular(
     return u, v, r.astype(np.float32)
 
 
-def _project_cube(coord: np.ndarray, size: int) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+def _project_cube(coord: np.ndarray,
+                  size: int) -> Tuple[np.ndarray,
+                                      np.ndarray,
+                                      np.ndarray,
+                                      np.ndarray]:
     x = coord[:, 0]
     y = coord[:, 1]
     z = coord[:, 2]
@@ -364,10 +378,12 @@ def _make_feature_arrays(scene: SceneData) -> Dict[str, np.ndarray]:
         features["normal"] = normal_rgb
 
     if scene.class_id is not None and scene.class_id.shape[0] == n:
-        features["class"] = _colorize_class(scene.class_id.reshape(-1), _build_class_lut())
+        features["class"] = _colorize_class(
+            scene.class_id.reshape(-1), _build_class_lut())
 
     if scene.instance_id is not None and scene.instance_id.shape[0] == n:
-        features["instance"] = _colorize_instance(scene.instance_id.reshape(-1))
+        features["instance"] = _colorize_instance(
+            scene.instance_id.reshape(-1))
 
     return features
 
@@ -379,7 +395,8 @@ def _render_panorama(
     height: int,
     selected_features: Iterable[str],
 ) -> None:
-    u, v, depth = _project_equirectangular(scene.coord, width=width, height=height)
+    u, v, depth = _project_equirectangular(
+        scene.coord, width=width, height=height)
     linear = v * width + u
 
     best = _best_point_per_pixel(linear, depth, width * height)
@@ -402,7 +419,8 @@ def _render_panorama(
             valid = best >= 0
             depth_img.reshape(-1)[valid] = depth[best[valid]]
 
-            d8 = _normalize_to_uint8(depth_img.reshape(-1)).reshape(height, width)
+            d8 = _normalize_to_uint8(
+                depth_img.reshape(-1)).reshape(height, width)
             _save_png(pano_dir / "depth.png", d8)
             continue
 
@@ -442,7 +460,12 @@ def _render_cube_map(
         valid = best_local >= 0
         best_global[valid] = local_point_ids[best_local[valid]]
 
-        np.save(cube_dir / f"pixel_to_point_{face_name}.npy", best_global.reshape(size, size))
+        np.save(
+            cube_dir /
+            f"pixel_to_point_{face_name}.npy",
+            best_global.reshape(
+                size,
+                size))
 
         for feat in selected_features:
             if feat not in features:
@@ -453,7 +476,8 @@ def _render_cube_map(
                 valid = best_global >= 0
                 depth_img.reshape(-1)[valid] = depth[best_global[valid]]
 
-                d8 = _normalize_to_uint8(depth_img.reshape(-1)).reshape(size, size)
+                d8 = _normalize_to_uint8(
+                    depth_img.reshape(-1)).reshape(size, size)
                 _save_png(cube_dir / f"depth_{face_name}.png", d8)
                 continue
 
@@ -464,7 +488,8 @@ def _render_cube_map(
             _save_png(cube_dir / f"{feat}_{face_name}.png", img)
 
 
-def _render_one_scene(scene_dir: Path, options: RenderOptions) -> tuple[str, str]:
+def _render_one_scene(
+        scene_dir: Path, options: RenderOptions) -> tuple[str, str]:
     """
     Must be a top-level function for ProcessPoolExecutor.
     Do not define this inside render_from_config().
@@ -530,7 +555,7 @@ def render_from_config(config_path: str | Path) -> None:
 
     site = getattr(cfg.selection, "site", None)
     site = 'all' if site is None else site
-        
+
     scene = getattr(cfg.selection, "scene", None)
     scene = 'all' if scene is None else scene
 
@@ -538,7 +563,8 @@ def render_from_config(config_path: str | Path) -> None:
     render_cube = bool(cfg.render.cube_map)
 
     if not render_pano and not render_cube:
-        raise ValueError("Both render.panorama and render.cube_map are disabled.")
+        raise ValueError(
+            "Both render.panorama and render.cube_map are disabled.")
 
     selected_features = tuple(cfg.render.features)
 
@@ -573,7 +599,6 @@ def render_from_config(config_path: str | Path) -> None:
     if options.render_cube:
         log.info("    Cube Map Size:    %s", options.cube_size)
     log.info("------------------------------------------------")
-
 
     log.info(
         "Rendering %d scenes using backend=%s with workers=%d.",

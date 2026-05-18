@@ -15,7 +15,8 @@ from rohbau3d.misc._logging import setup_logging
 # Worker
 # -----------------------------
 
-def _parse_scene_worker(args: Tuple[int, Path, Path, Path]) -> Tuple[int, str, bool, str]:
+def _parse_scene_worker(
+        args: Tuple[int, Path, Path, Path]) -> Tuple[int, str, bool, str]:
     """Parse a single scene directory into a .pcd file.
 
     Returns (idx, scene_name, success, message)
@@ -68,7 +69,8 @@ def _parse_scene_worker(args: Tuple[int, Path, Path, Path]) -> Tuple[int, str, b
                     color = color.astype(np.uint8)
             # Expect shape (N,3)
             if color.ndim != 2 or color.shape[1] != 3:
-                return idx, scene_name, False, f"color.npy has invalid shape {color.shape}"
+                return idx, scene_name, False, f"color.npy has invalid shape {
+                    color.shape}"
             rgb = pack_rgb(color[:, 0], color[:, 1], color[:, 2])
         else:
             rgb = None
@@ -102,12 +104,16 @@ def main():
 
     Adjust `source_dir`, `target_dir`, and `max_workers` below or hook this up to argparse.
     """
-    setup_logging(log_file="logs/parse_rb3d_to_pcd.log", level="INFO", to_console=True)
+    setup_logging(
+        log_file="logs/parse_rb3d_to_pcd.log",
+        level="INFO",
+        to_console=True)
     log = logging.getLogger(__name__)
 
     # --- CONFIG ---
     source_dir = Path(r"Q:\PunktWolken\rohbau3d_v2")
-    target_dir = Path(r"D:\PunktWolken\rohbau3d_v2\basic ai\20250916_datatransfer\rohbau3d")
+    target_dir = Path(
+        r"D:\PunktWolken\rohbau3d_v2\basic ai\20250916_datatransfer\rohbau3d")
     # max_workers = max(1, (os.cpu_count() or 4) - 1)  # leave one core free
     max_workers = 2
     # -------------
@@ -120,10 +126,12 @@ def main():
     log.info(f"Workers: {max_workers}")
 
     # Find sites and scenes
-    site_list = [p for p in source_dir.iterdir() if p.is_dir() and p.name.startswith("site_")]
+    site_list = [p for p in source_dir.iterdir() if p.is_dir()
+                 and p.name.startswith("site_")]
     scenes_list = []
     for site_path in site_list:
-        scenes_list.extend([p for p in site_path.iterdir() if p.is_dir() and p.name.startswith("scene_")])
+        scenes_list.extend([p for p in site_path.iterdir()
+                           if p.is_dir() and p.name.startswith("scene_")])
 
     num_scenes = len(scenes_list)
     log.info(f"Parsing {num_scenes} scenes from source directory.")
@@ -134,7 +142,8 @@ def main():
         return
 
     # Build task args
-    tasks = [(i, scenes_list[i], source_dir, target_dir) for i in range(num_scenes)]
+    tasks = [(i, scenes_list[i], source_dir, target_dir)
+             for i in range(num_scenes)]
 
     # Submit to process pool
     completed = 0
@@ -146,9 +155,11 @@ def main():
             completed += 1
             ok += int(success)
             if success:
-                log.info(f"[{completed}/{num_scenes}] OK - {scene_name} -> {message}")
+                log.info(
+                    f"[{completed}/{num_scenes}] OK - {scene_name} -> {message}")
             else:
-                log.warning(f"[{completed}/{num_scenes}] FAIL - {scene_name} -> {message}")
+                log.warning(
+                    f"[{completed}/{num_scenes}] FAIL - {scene_name} -> {message}")
 
     log.info("-" * 50)
     log.info(f"Done. {ok}/{num_scenes} scenes converted.")

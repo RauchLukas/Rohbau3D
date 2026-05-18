@@ -6,10 +6,12 @@ import logging.config
 
 _DEFAULT_FORMAT = "%(asctime)s %(levelname)-8s %(name)s:%(lineno)d — %(message)s"
 
+
 class SkipConsoleFilter(logging.Filter):
     def filter(self, record: logging.LogRecord) -> bool:
         # If a record carries no_console=True, drop it from the console handler
         return not getattr(record, "no_console", False)
+
 
 def setup_logging(
     log_file: str | Path,
@@ -25,8 +27,7 @@ def setup_logging(
 
     # Choose file handler class
     file_handler_class = (
-        "logging.handlers.RotatingFileHandler" if rotate else "logging.FileHandler"
-    )
+        "logging.handlers.RotatingFileHandler" if rotate else "logging.FileHandler")
 
     config = {
         "version": 1,

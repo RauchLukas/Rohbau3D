@@ -62,9 +62,8 @@ class Config(dict):
                 return [un(i) for i in v]
             return v
         return un(self)
-    
 
-    
+
 def load_config(path: str | Path) -> Config:
     """Read YAML → Config (dot-access)."""
     p = Path(path)
