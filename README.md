@@ -1,10 +1,8 @@
-# Rohbau3D
-A Shell Construction Site 3D Point Cloud Dataset
+<p align="center"><img width="70%" src="https://github.com/RauchLukas/Rohbau3D/blob/main/img/rohbau3d_cover.png" /></p>
+<!-- <p align="center"><em>Figure: Rohbau3D point cloud feature maps</em></p> -->
 
-<p align="center">
-  <img width="700" src="https://github.com/user-attachments/assets/725f1d51-7f75-4f2e-aef4-08990b47c42c" alt="Rohbau3D point cloud feature maps">
-</p>
-<p align="center"><em>Figure: Rohbau3D point cloud feature maps</em></p>
+[![Format Code](https://github.com/RauchLukas/Rohbau3D/actions/workflows/formatter.yml/badge.svg?branch=main)](https://github.com/RauchLukas/Rohbau3D/actions/workflows/formatter.yml)
+
 
 ## Abstract
 
@@ -20,8 +18,6 @@ Designed to reflect the complexity and variability of real-world construction si
 * 🚀 **Rohbau3D-Semantics**: Dense Semantic and Instance Labels for Indoor Shell Construction Scenes
 
 
-
-
 ## Publications
 :page_facing_up: [Rohbau3D: A Shell Construction Site 3D Point Cloud Dataset](https://www.nature.com/articles/s41597-025-05827-7)
 
@@ -29,23 +25,22 @@ Designed to reflect the complexity and variability of real-world construction si
 
 ## Overview 
 
-- [Rohbau3D](#rohbau3d)
-  - [Abstract](#abstract)
-  - [Highlights](#highlights)
-  - [Publications](#publications)
-  - [Overview](#overview)
-  - [Data Records](#data-records)
-    - [The Scope Of The Data](#the-scope-of-the-data)
-    - [The Dataset Structure](#the-dataset-structure)
-  - [Installation](#installation)
-    - [Requirements](#requirements)
-    - [Clone Repository](#clone-repository)
-    - [Conda Environment](#conda-environment)
-  - [Download and Extract the Point Cloud Data](#download-and-extract-the-point-cloud-data)
-  - [Download Feature-Overview Compendium Files](#download-feature-overview-compendium-files)
-  - [Rendering Panorama Images and Cube-Maps from the Point Clouds](#rendering-panorama-images-and-cube-maps-from-the-point-clouds)
-  - [Citation](#citation)
-  - [Acknowledgement](#acknowledgement)
+- [Abstract](#abstract)
+- [Highlights](#highlights)
+- [Publications](#publications)
+- [Overview](#overview)
+- [Data Records](#data-records)
+  - [The Scope Of The Data](#the-scope-of-the-data)
+  - [The Dataset Structure](#the-dataset-structure)
+- [Installation](#installation)
+  - [Requirements](#requirements)
+  - [Clone Repository](#clone-repository)
+  - [Conda Environment](#conda-environment)
+- [Download and Extract the Point Cloud Data](#download-and-extract-the-point-cloud-data)
+- [Download Feature-Overview Compendium Files](#download-feature-overview-compendium-files)
+- [Rendering Panorama Images and Cube-Maps from the Point Clouds](#rendering-panorama-images-and-cube-maps-from-the-point-clouds)
+- [Citation](#citation)
+- [Acknowledgement](#acknowledgement)
 
 
 ## Data Records
