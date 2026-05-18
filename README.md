@@ -3,6 +3,11 @@
 
 [![Format Code](https://github.com/RauchLukas/Rohbau3D/actions/workflows/formatter.yml/badge.svg?branch=main)](https://github.com/RauchLukas/Rohbau3D/actions/workflows/formatter.yml)
 [![License](https://img.shields.io/github/license/RauchLukas/Rohbau3D)](https://github.com/RauchLukas/Rohbau3D/blob/main/LICENSE)
+[![Last commit](https://img.shields.io/github/last-commit/RauchLukas/Rohbau3D)](https://github.com/RauchLukas/Rohbau3D/commits/main)
+[![Issues](https://img.shields.io/github/issues/RauchLukas/Rohbau3D)](https://github.com/RauchLukas/Rohbau3D/issues)
+[![Pull requests](https://img.shields.io/github/issues-pr/RauchLukas/Rohbau3D)](https://github.com/RauchLukas/Rohbau3D/pulls)
+[![DOI](https://img.shields.io/badge/DOI-10.1038%2Fs41597--025--05827--7-blue)](https://doi.org/10.1038/s41597-025-05827-7)
+[![Cite this repository](https://img.shields.io/badge/cite-CITATION.cff-blue)](https://github.com/RauchLukas/Rohbau3D/blob/main/CITATION.cff)
 
 ## Abstract
 
