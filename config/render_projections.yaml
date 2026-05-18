@@ -1,0 +1,31 @@
+# Projection rendering configuration
+
+data:
+  root: data/extract
+
+output:
+  root: data/renderings
+
+selection:
+  # Use null to process all available sites/scenes.
+  # Example for single scene:
+  # site: site_01
+  # scene: scene_01000
+  site: null   # null | all | [site_01, site_02, ...]
+  scene: null  # null | all | [scene_01001, scene_06069]
+
+render:
+  panorama: true
+  cube_map: true
+  # Available: color, depth, intensity, normal, class, instance
+  features: [color, depth, intensity, normal, class, instance]
+  parallel:
+    backend: process   # serial | process | thread
+    workers: 12         # 1 = no parallelism, 0 or auto = os.cpu_count()
+
+panorama:
+  width: 4096
+  height: 2048
+
+cube_map:
+  size: 1024

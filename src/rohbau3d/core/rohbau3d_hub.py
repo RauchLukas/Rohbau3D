@@ -13,7 +13,7 @@ import logging
 log = logging.getLogger(__name__)
 
 
-RHOBAU3D_HEADER = """
+ROHBAU3D_HEADER = """
     ____        __    __               _____ ____     __  __      __  
    / __ \____  / /_  / /_  ____ ___  _|__  // __ \   / / / /_  __/ /_ 
   / /_/ / __ \/ __ \/ __ \/ __ `/ / / //_ </ / / /  / /_/ / / / / __ \ 
@@ -23,16 +23,42 @@ RHOBAU3D_HEADER = """
 \n"""
 
 
+# DATAVERSE REGISTRY ---------------------------------------------
+
+DATAVERSE_BASE_URL = "doi:10.60776/ZWJFI4"
+
 ROHBAU3D_FEATURES = [
-            "coord", "color", "intensity", "normal"
+            "coord", "color", "intensity", "normal", "class", "instance", "sample_idx", "inv_sample_idx", "metadata",
         ]
+
+ROHBAU3D_SITES = [
+            "site_00", "site_01", "site_02", "site_03",
+            "site_04", "site_05", "site_06", "site_07",
+            "site_08", "site_09", "site_10", "site_11",
+            "site_12", "site_13",
+        ]
+# ---------------------------------------------------------------
+
 
 
 class Rohbau3DHub:
     def __init__(self, cfg):
-        print(RHOBAU3D_HEADER)
+        print(ROHBAU3D_HEADER)
 
         self.cfg = cfg
+
+        # log the configuration settings
+        log.info(">>> Rohbau3D Hub Configuration <<<")
+        log.info("-"*50)
+        for key, value in self.cfg.items():
+            log.info(f"   {key:<25}: {value}")
+
+        log.info("-"*50 + "\n")
+
+        self.cfg["dataverse_base_url"] = DATAVERSE_BASE_URL
+        self.cfg["rohbau3d_features"] = ROHBAU3D_FEATURES
+        self.cfg["rohbau3d_sites"] = ROHBAU3D_SITES
+
 
         self.feature_selection = cfg.get("feature_selection")
         if self.feature_selection == "all" or self.feature_selection == ["all"]:
@@ -59,6 +85,8 @@ class Rohbau3DHub:
         download_dir = self.cfg["download_dir"]
         extract_dir = self.cfg["extract_dir"] + "/rohbau3d"
 
+        log.info("/"*50)
+        log.info("/// Starting extraction ...")
         log.info(f"Extracting files to PATH: {extract_dir}")
 
         stats = {
@@ -82,6 +110,8 @@ class Rohbau3DHub:
             stats["corrupted_files"] = stats.get("corrupted_files", []) + temp_stats.get("corrupted_files", [])
 
         stats["total_time"] = time() - start_time
+
+        log.info("/// Extraction completed.\n")
         return stats
     
 
@@ -97,5 +127,5 @@ class Rohbau3DHub:
                 if exists(path):
                     log.info(f"Removing {path}")
                     shutil.rmtree(path)
-
+                    
         return True

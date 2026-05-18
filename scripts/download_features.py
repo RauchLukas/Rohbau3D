@@ -11,7 +11,7 @@ import logging
 import argparse
 from rohbau3d.misc.helper import tree
 
-RHOBAU3D_HEADER = """
+ROHBAU3D_HEADER = """
     ____        __    __               _____ ____     __  __      __  
    / __ \____  / /_  / /_  ____ ___  _|__  // __ \   / / / /_  __/ /_ 
   / /_/ / __ \/ __ \/ __ \/ __ `/ / / //_ </ / / /  / /_/ / / / / __ \ 
@@ -21,26 +21,26 @@ RHOBAU3D_HEADER = """
 """
 
 FILE_LIST = [
-    "site_00.panorama.features.pdf",
-    "site_01.panorama.features.pdf",
-    "site_02.panorama.features.pdf",
-    "site_03.panorama.features.pdf",
-    "site_04.panorama.features.pdf",
-    "site_05.panorama.features.pdf",
-    "site_06.panorama.features.pdf",
-    "site_07.panorama.features.pdf",
-    "site_08.panorama.features.pdf",
-    "site_09.panorama.features.pdf",
-    "site_10.panorama.features.pdf",
-    "site_11.panorama.features.pdf",
-    "site_12.panorama.features.pdf",
-    "site_13.panorama.features.pdf",
+    "site_00_feature_compendium.pdf",
+    "site_01_feature_compendium.pdf",
+    "site_02_feature_compendium.pdf",
+    "site_03_feature_compendium.pdf",
+    "site_04_feature_compendium.pdf",
+    "site_05_feature_compendium.pdf",
+    "site_06_feature_compendium.pdf",
+    "site_07_feature_compendium.pdf",
+    "site_08_feature_compendium.pdf",
+    "site_09_feature_compendium.pdf",
+    "site_10_feature_compendium.pdf",
+    "site_11_feature_compendium.pdf",
+    "site_12_feature_compendium.pdf",
+    "site_13_feature_compendium.pdf",
 ]
 
 
 
 def _argparse():
-    parser = argparse.ArgumentParser(description="Rohbau3D Download Script")
+    parser = argparse.ArgumentParser(description="Rohbau3D: Feature Compendium Download Script")
     parser.add_argument("--dir", type=str, required=True, help="Output directory for downloaded features")
     args = parser.parse_args()
 
@@ -83,7 +83,7 @@ def main():
 
 
 if __name__ == "__main__":
-    print(RHOBAU3D_HEADER)
+    print(ROHBAU3D_HEADER)
     main()
 
     print("\nDone ...")

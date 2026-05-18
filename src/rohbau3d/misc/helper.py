@@ -33,10 +33,10 @@ def session_summary(stats:dict):
         time = value.pop("total_time", None)
         log.info(f"{key.upper()} Summary:")
         log.info(f"  Total Time: {time:.2f} seconds" if time else "  Total Time: N/A")
-        log.info(f"  Path: {path}" if path else "  Path: N/A")
+        log.info(f"  Path:       {path}" if path else "  Path: N/A")
 
         for key, val in value.items():
-            log.info(f"    > {key}: {val}")
+            log.info(f"    > {key:<20}: {val}")
 
         log.info("="*50)   
     return None

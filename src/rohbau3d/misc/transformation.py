@@ -5,6 +5,8 @@ from email.policy import default
 import numpy as np
 from PIL import Image
 from matplotlib.pyplot import cm
+from typing import Sequence
+
 
 def euclidean_distance(point, vector):
     """
@@ -52,16 +54,47 @@ def normals_to_rgb(normals):
     return rgb
 
 
+def instance_colors(
+    instance_ids: np.ndarray,
+    *,
+    seed: int = 0,
+    classes: np.ndarray | None = None,
+    background_class_id: int = 0,
+    background_instance_id: int = 0,
+    background_color: Sequence[int] = (114, 114, 116),
+) -> np.ndarray:
+    inst = np.asarray(instance_ids).reshape(-1)
+    classes_arr = None if classes is None else np.asarray(classes).reshape(-1)
+
+    rgb = np.zeros((len(inst), 3), dtype=np.uint8)
+    unique_ids = np.unique(inst)
+
+    for inst_id in unique_ids:
+        mask = inst == inst_id
+        local_seed = (int(inst_id) * 73856093 + seed * 19349663) % (2**32 - 1)
+        rng = np.random.default_rng(local_seed)
+        color = rng.integers(0, 256, size=3, dtype=np.uint8)
+        rgb[mask] = color
+
+    background_mask = inst == background_instance_id
+    if classes_arr is not None:
+        if classes_arr.shape[0] != inst.shape[0]:
+            raise ValueError("classes must have the same length as instance_ids")
+        background_mask |= classes_arr == background_class_id
+
+    rgb[background_mask] = np.asarray(background_color, dtype=np.uint8)
+    return rgb
+
 class SphericalProjection:
 
-    def __init__(self, coord, color=None, intensity=None, normal=None, segment=None, instance=None):
+    def __init__(self, coord, color=None, intensity=None, normal=None, classes=None, instance=None, class_cmap=None):
         self.coord = coord
         self.color = color
         self.intensity = intensity
         self.normal = normal
-        self.segment = segment
+        self.classes = classes
         self.instance = instance
-    
+        self.class_cmap = class_cmap
 
     def intensity_image(self, upscale=8, img_ratio=(3, 1), crop=True):
 
@@ -173,6 +206,71 @@ class SphericalProjection:
             pil_image = self.crop_empty_borders(pil_image, mask)
 
         return pil_image
+
+
+    def class_image(self, upscale=8, img_ratio=(3, 1), default_color=[0, 0, 0], crop=True):
+
+        if self.classes is None:
+            raise ValueError("Semantic class information is missing.")
+        
+        px, py, pz = self.coord[:, 0], self.coord[:, 1], self.coord[:, 2]
+        r = euclidean_distance([0, 0, 0], self.coord)
+
+        w = int(256 * img_ratio[0] * upscale)
+        h = int(256 * img_ratio[1] * upscale)
+
+        u = self.get_u(px, py, w=w)
+        v = self.get_v(pz, radius=r, fup=90, fdw=90, h=h)
+
+        # num_classes = np.max(self.instance) + 1
+        # if self.class_cmap is None:
+        #     colormap = cm.get_cmap('tab20', num_classes)
+        # else:
+        colormap = self.class_cmap
+        rgb_color = colormap(self.classes)[:, :3]  # Extract RGB channels, ignore alpha
+
+        image, mask = self.assemble_image_rgba(u, v, rgb_color, h, w)
+
+        colored_image = (image).astype(np.uint8)
+        pil_image = Image.fromarray(colored_image, mode='RGBA')
+
+        if crop:
+            pil_image = self.crop_empty_borders(pil_image, mask)
+
+        return pil_image
+    
+    def instance_image(self, upscale=8, img_ratio=(3, 1), default_color=[0, 0, 0], crop=True):
+
+        if self.instance is None:
+            raise ValueError("Instance information is missing.")
+
+        px, py, pz = self.coord[:, 0], self.coord[:, 1], self.coord[:, 2]
+        r = euclidean_distance([0, 0, 0], self.coord)
+
+        w = int(256 * img_ratio[0] * upscale)
+        h = int(256 * img_ratio[1] * upscale)
+
+        u = self.get_u(px, py, w=w)
+        v = self.get_v(pz, radius=r, fup=90, fdw=90, h=h)
+
+        rgb_color = instance_colors(
+            self.instance,
+            seed=0,
+            classes=getattr(self, "instance", None),   # adapt if your semantic labels use a different attribute
+            background_instance_id=0,
+            background_color=(114, 114, 116),
+        )
+
+        image, mask = self.assemble_image_rgba(u, v, rgb_color/255, h, w)
+
+        colored_image = image.astype(np.uint8)
+        pil_image = Image.fromarray(colored_image, mode="RGBA")
+
+        if crop:
+            pil_image = self.crop_empty_borders(pil_image, mask)
+
+        return pil_image
+
 
 
     @staticmethod

@@ -44,8 +44,13 @@ def main():
     else:
         if args.download:
             stats["download"] = rohbau3d.download()
+        else:
+            log.info("/// ... Skipped download.")
+        
         if args.extract:
             stats["extraction"] = rohbau3d.extract()
+        else:
+            log.info("/// ... Skipped extraction.")
 
         # Exit
         if config.clean_download_files: 

@@ -335,5 +335,225 @@
       "site_13.normal.part003.tar.zst",
       "site_13.normal.part004.tar.zst"
     ]
+  },
+  "class": {
+    "0": [
+      "site_00.class.part000.tar.zst"
+    ],
+    "1": [
+      "site_01.class.part000.tar.zst"
+    ],
+    "2": [
+      "site_02.class.part000.tar.zst"
+    ],
+    "3": [
+      "site_03.class.part000.tar.zst"
+    ],
+    "4": [
+      "site_04.class.part000.tar.zst"
+    ],
+    "5": [
+      "site_05.class.part000.tar.zst"
+    ],
+    "6": [
+      "site_06.class.part000.tar.zst"
+    ],
+    "7": [
+      "site_07.class.part000.tar.zst"
+    ],
+    "8": [
+      "site_08.class.part000.tar.zst"
+    ],
+    "9": [
+      "site_09.class.part000.tar.zst"
+    ],
+    "10": [
+      "site_10.class.part000.tar.zst"
+    ],
+    "11": [
+      "site_11.class.part000.tar.zst"
+    ],
+    "12": [
+      "site_12.class.part000.tar.zst"
+    ],
+    "13": [
+      "site_13.class.part000.tar.zst"
+    ]
+  },
+  "inv_sample_idx": {
+    "0": [
+      "site_00.inv_sample_idx.part000.tar.zst"
+    ],
+    "1": [
+      "site_01.inv_sample_idx.part000.tar.zst"
+    ],
+    "2": [
+      "site_02.inv_sample_idx.part000.tar.zst"
+    ],
+    "3": [
+      "site_03.inv_sample_idx.part000.tar.zst"
+    ],
+    "4": [
+      "site_04.inv_sample_idx.part000.tar.zst"
+    ],
+    "5": [
+      "site_05.inv_sample_idx.part000.tar.zst"
+    ],
+    "6": [
+      "site_06.inv_sample_idx.part000.tar.zst"
+    ],
+    "7": [
+      "site_07.inv_sample_idx.part000.tar.zst"
+    ],
+    "8": [
+      "site_08.inv_sample_idx.part000.tar.zst"
+    ],
+    "9": [
+      "site_09.inv_sample_idx.part000.tar.zst"
+    ],
+    "10": [
+      "site_10.inv_sample_idx.part000.tar.zst"
+    ],
+    "11": [
+      "site_11.inv_sample_idx.part000.tar.zst"
+    ],
+    "12": [
+      "site_12.inv_sample_idx.part000.tar.zst"
+    ],
+    "13": [
+      "site_13.inv_sample_idx.part000.tar.zst"
+    ]
+  },
+  "metadata": {
+    "0": [
+      "site_00.metadata.part000.tar.zst"
+    ],
+    "1": [
+      "site_01.metadata.part000.tar.zst"
+    ],
+    "2": [
+      "site_02.metadata.part000.tar.zst"
+    ],
+    "3": [
+      "site_03.metadata.part000.tar.zst"
+    ],
+    "4": [
+      "site_04.metadata.part000.tar.zst"
+    ],
+    "5": [
+      "site_05.metadata.part000.tar.zst"
+    ],
+    "6": [
+      "site_06.metadata.part000.tar.zst"
+    ],
+    "7": [
+      "site_07.metadata.part000.tar.zst"
+    ],
+    "8": [
+      "site_08.metadata.part000.tar.zst"
+    ],
+    "9": [
+      "site_09.metadata.part000.tar.zst"
+    ],
+    "10": [
+      "site_10.metadata.part000.tar.zst"
+    ],
+    "11": [
+      "site_11.metadata.part000.tar.zst"
+    ],
+    "12": [
+      "site_12.metadata.part000.tar.zst"
+    ],
+    "13": [
+      "site_13.metadata.part000.tar.zst"
+    ]
+  },
+  "sample_idx": {
+    "0": [
+      "site_00.sample_idx.part000.tar.zst"
+    ],
+    "1": [
+      "site_01.sample_idx.part000.tar.zst"
+    ],
+    "2": [
+      "site_02.sample_idx.part000.tar.zst"
+    ],
+    "3": [
+      "site_03.sample_idx.part000.tar.zst"
+    ],
+    "4": [
+      "site_04.sample_idx.part000.tar.zst"
+    ],
+    "5": [
+      "site_05.sample_idx.part000.tar.zst"
+    ],
+    "6": [
+      "site_06.sample_idx.part000.tar.zst"
+    ],
+    "7": [
+      "site_07.sample_idx.part000.tar.zst"
+    ],
+    "8": [
+      "site_08.sample_idx.part000.tar.zst"
+    ],
+    "9": [
+      "site_09.sample_idx.part000.tar.zst"
+    ],
+    "10": [
+      "site_10.sample_idx.part000.tar.zst"
+    ],
+    "11": [
+      "site_11.sample_idx.part000.tar.zst"
+    ],
+    "12": [
+      "site_12.sample_idx.part000.tar.zst"
+    ],
+    "13": [
+      "site_13.sample_idx.part000.tar.zst"
+    ]
+  },
+  "instance": {
+    "0": [
+      "site_00.instance.part000.tar.zst"
+    ],
+    "1": [
+      "site_01.instance.part000.tar.zst"
+    ],
+    "2": [
+      "site_02.instance.part000.tar.zst"
+    ],
+    "3": [
+      "site_03.instance.part000.tar.zst"
+    ],
+    "4": [
+      "site_04.instance.part000.tar.zst"
+    ],
+    "5": [
+      "site_05.instance.part000.tar.zst"
+    ],
+    "6": [
+      "site_06.instance.part000.tar.zst"
+    ],
+    "7": [
+      "site_07.instance.part000.tar.zst"
+    ],
+    "8": [
+      "site_08.instance.part000.tar.zst"
+    ],
+    "9": [
+      "site_09.instance.part000.tar.zst"
+    ],
+    "10": [
+      "site_10.instance.part000.tar.zst"
+    ],
+    "11": [
+      "site_11.instance.part000.tar.zst"
+    ],
+    "12": [
+      "site_12.instance.part000.tar.zst"
+    ],
+    "13": [
+      "site_13.instance.part000.tar.zst"
+    ]
   }
 }

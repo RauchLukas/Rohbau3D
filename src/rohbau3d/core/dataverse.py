@@ -15,18 +15,7 @@ log = logging.getLogger(__name__)
 
 # DATAVERSE REGISTRY ---------------------------------------------
 
-DATAVERSE_BASE_URL = "doi:10.60776/ZWJFI4"
-
-ROHBAU3D_FEATURES = [
-            "coord", "color", "intensity", "normal"
-        ]
-
-ROHBAU3D_SCENES = [
-            "site_00", "site_01", "site_02", "site_03",
-            "site_04", "site_05", "site_06", "site_07",
-            "site_08", "site_09", "site_10", "site_11",
-            "site_12", "site_13",
-        ]
+# Dedicated, determine registry from config set in rohbau3d_hub
 # ---------------------------------------------------------------
 
 
@@ -35,7 +24,7 @@ class Dataverse:
     def __init__(self, cfg):
         self.cfg = cfg
 
-        self.base_url = DATAVERSE_BASE_URL
+        self.base_url = cfg.get("dataverse_base_url", None)
         self.output_dir = cfg["download_dir"]
         self.config_dir = cfg["config_dir"]
 
@@ -43,7 +32,7 @@ class Dataverse:
         self.feature_index = self._get_file_index(join(self.config_dir, self.feature_index_file))
 
         self.feature_selection = self._get_feature_selection()
-        self.scene_selection = self._get_scene_selection()
+        self.site_selection = self._get_site_selection()
         self.data_selection = self._get_data_selection()
 
         self.stats = {
@@ -71,7 +60,9 @@ class Dataverse:
                 summary[feature]["num_files"] += len(files)
         
         for key, value in summary.items():
-            log.info(f"{key}: {value['num_sites']} sites, {value['num_files']} scenes")
+            s = "sites" if value["num_sites"] > 1 else "site"
+            p = "parts" if value["num_files"] > 1 else "part"
+            log.info(f"{key:<20}: {value['num_sites']:<3} {s}, {value['num_files']:<3} {p}")
 
         log.info("-------------------------------------------------------------")
         log.info(f"Total number of download files: {sum(value['num_files'] for value in summary.values())}")
@@ -79,6 +70,10 @@ class Dataverse:
 
 
     def download(self):
+
+        log.info("/"*50)
+        log.info("/// Starting download ...")
+
         log.info(f"Downloading files to {self.output_dir}")
         self.summarize_data_selection(self.data_selection)
 
@@ -111,14 +106,16 @@ class Dataverse:
                         self.stats["corrupted_files"].append(file_name)
 
         self.stats["total_time"] = time() - start_time
+
+        log.info("/// Download completed.\n")
         return self.stats
 
 
     def _get_data_selection(self):
         database = self.feature_index
 
-        # convert scene_selection to id strings only for json indexing
-        scene_selection = [str(int(s.split("_")[-1])) for s in self.scene_selection]
+        # convert site_selection to id strings only for json indexing
+        site_selection = [str(int(s.split("_")[-1])) for s in self.site_selection]
 
         # compile a reduced dict
         data_selection = {}
@@ -127,7 +124,7 @@ class Dataverse:
                 log.warning(f"Feature '{feature}' not found in database.")
                 continue
             data_selection[feature] = {}
-            for site in scene_selection:
+            for site in site_selection:
                 if site not in database[feature]:
                     log.warning(f"Site '{site}' not found for feature '{feature}'.")
                     continue
@@ -150,40 +147,45 @@ class Dataverse:
     def _get_feature_selection(self):
 
         cfg_feature_selection = self.cfg.get("feature_selection", None)
+        rohbau3d_feature_registry = self.cfg.get("rohbau3d_features", None)
 
         if cfg_feature_selection is None:
             log.warning("No feature selection provided, using all features.")
-            return ROHBAU3D_FEATURES
+            return rohbau3d_feature_registry
 
         if cfg_feature_selection == "all" or next(iter(cfg_feature_selection)) == "all":
-            return ROHBAU3D_FEATURES
+            return rohbau3d_feature_registry
 
         if type(cfg_feature_selection) is list:
             features = []
             for feature in cfg_feature_selection:
-                if feature in ROHBAU3D_FEATURES:
+                if feature in rohbau3d_feature_registry:
                     features.append(feature)
                 else:
                     log.warning(f"Selected feature {feature} is not a valid feature. Skipping.")
 
             return features
 
-    def _get_scene_selection(self):
-        cfg_scene_selection = self.cfg.get("scene_selection", None)
+    def _get_site_selection(self):
+        cfg_site_selection = self.cfg.get("site_selection", None)
+        rohbau3d_site_registry = self.cfg.get("rohbau3d_sites", None)
 
-        if cfg_scene_selection is None:
-            log.warning("No scene selection provided, using all scenes.")
-            return ROHBAU3D_SCENES
+        if cfg_site_selection is None:
+            log.warning("No site selection provided, using all sites.")
+            return rohbau3d_site_registry
         
-        if cfg_scene_selection == "all" or next(iter(cfg_scene_selection)) == "all":
-            return ROHBAU3D_SCENES
+        if cfg_site_selection == "all" or next(iter(cfg_site_selection)) == "all":
+            return rohbau3d_site_registry
         
-        if type(cfg_scene_selection) is list:
-            scenes = []
-            for scene in cfg_scene_selection:
-                if scene in ROHBAU3D_SCENES:
-                    scenes.append(scene)
+        if type(cfg_site_selection) is list:
+            sites = []
+            for site in cfg_site_selection:
+                if type(site) is int:
+                    # convert to site_id string for lazy indexing
+                    site = f"site_{site:02d}"
+                if site in rohbau3d_site_registry:
+                    sites.append(site)
                 else:
-                    log.warning(f"Selected scene {scene} is not a valid scene. Skipping.")
+                    log.warning(f"Selected site {site} is not a valid site. Skipping.")
 
-            return scenes
+            return sites
