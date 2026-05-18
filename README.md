@@ -183,7 +183,7 @@ The point cloud dataset can be directly downloaded in chunks from Dataverse @ Op
 
 <p align="center">
   <a href="https://open-data.unibw.de/dataset.xhtml?persistentId=doi:10.60776/ZWJFI4&version=DRAFT" target="_blank" rel="noopener noreferrer">
-    <img width="320" src="img/opendata_datatree.png" alt="OpenData Data Tree">
+    <img width="540" src="img/opendata_datatree.png" alt="OpenData Data Tree">
   </a>
 </p>
 <p align="center">
@@ -262,7 +262,7 @@ clean_download_files: False
 To give you a quick overview of all scenes, we provide a compendium in .pdf format for each acquisition site, with a rendered panoramic view of all point cloud features. 
 
 <p align="center">
-  <img width="420" src="img/compendium_example.jpg" alt="Example Page: Feature Compendium.">
+  <img width="620" src="img/compendium_example.jpg" alt="Example Page: Feature Compendium.">
 </p>
 <p align="center"><em>Example site feature compendium.</em></p>
 
