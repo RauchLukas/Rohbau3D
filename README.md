@@ -380,3 +380,5 @@ If you find our work useful in your research, please cite our paper:
 The surface normal estimation in this repo is based on/inspired by great works, including but not limited to:   
 [SHS-Net](https://github.com/LeoQLi/SHS-Net) 
  
+
+<p align="center"><img width="50%" src="https://github.com/RauchLukas/Rohbau3D/blob/main/img/rohbau3d_cover.png" /></p>
