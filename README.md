@@ -98,7 +98,7 @@ rohbau3d
 |           |-- ...
 |
 |-- site_00
-|   |-- scan_00000
+|   |-- scene_00000
 |   |   |-- coord.npy
 |   |   |-- color.npy
 |   |   |-- intensity.npy
@@ -132,12 +132,12 @@ rohbau3d
 |   |   |   |-- class_{...} 
 |   |   |   '-- instance_{...} 
 |   |   
-|   |-- scan_00001
-|   |-- scan_00002
+|   |-- scene_00001
+|   |-- scene_00002
 |   '-- ...
 |
 |-- site_01
-|   |-- scan_01000
+|   |-- scene_01000
 |   '-- ...
 |
 ... 
